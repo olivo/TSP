@@ -8,3 +8,6 @@ class Point:
     def distance(self, other_point):
         return math.sqrt((self.x - other_point.x)**2 +
                          (self.y - other_point.y)**2)
+
+    def str(self):
+        return "(" + str(self.x) + ", " + str(self.y) + ")"

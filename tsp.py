@@ -1,15 +1,8 @@
 from point import Point
+import sys
 
-def compute_nearest_neighbor_index(points, current_point_index):
-    min_distance = 0
-    min_index = 0
-    current_point = points[current_point_index]
-    for index in range(0, len(points)):
-        if Point.distance(points[index], current_point) < min_distance and current_point_index != index:
-            min_distance = Point.distance(points[index], current_point)
-            min_index = index
-    return min_distance
-        
+def nearest_neighbor(points, current_point):
+    return min(points, key = lambda x: Point.distance(x, current_point) if x != current_point else sys.maxint)
 
 # List of points in the plane to be used for testing.
 points = list()
@@ -18,4 +11,8 @@ points.append(Point(0,1))
 points.append(Point(1,2))
 points.append(Point(2,2))
 
-index = compute_nearest_neighbor_index(points, 0)
+start_point = points[0]
+
+nearest_neighbor = nearest_neighbor(points, start_point)
+
+print "The nearest neighbor is:", Point.str(nearest_neighbor)
