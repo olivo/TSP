@@ -15,7 +15,29 @@ def compute_nearest_neighbor_tsp_route(points):
         print "Neighbor:", Point.str(neighbor)
         points.remove(neighbor)
 
+    route.append(route[0])
     return route
+
+def closest_pair(paths):
+    best_distance = 0
+    best_first_index = -1
+    best_second_index = -1
+    for first_index in range(0, len(paths)):
+        for second_index in range(first_index + 1, len(paths)):
+            first_to_second_cost = Point.distance(paths[first_index][-1], paths[second_index][0])
+            second_to_first_cost = Point.distance(paths[first_index][0], paths[second_index][-1])
+            if first_to_second_cost < best_distance or second_to_first_cost < best_distance:
+                if first_to_second_cost < second_to_first_cost:
+                    best_distance = first_to_second_cost
+                    best_first_index = first_index
+                    best_second_index = second_index
+                else:
+                    best_distance = second_to_first_cost
+                    best_first_index = second_index
+                    best_second_index = first_index
+    
+    return first_index, second_index
+        
 
 # List of points in the plane to be used for testing.
 points = list()
