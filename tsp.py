@@ -37,7 +37,32 @@ def closest_pair(paths):
                     best_second_index = first_index
     
     return first_index, second_index
+
+
+def merge_pairs(paths, first_index, second_index):
+    merged_path = paths[first_index] + paths[second_index]
+    first_path = paths[first_index]
+    second_path = paths[second_index]
+    paths.remove(first_path)
+    paths.remove(second_path)
+    paths.add(merged_path)
         
+
+def compute_closest_pair_tsp_route(points):
+    paths = list()
+
+    for point in points:
+        path = list(point)
+        paths.append(path)
+
+    for index in range(0, len(points) - 1):
+        first_index, second_index = closest_pair(paths)
+        merge_pairs(paths, first_index, second_index)
+
+    merge_pairs(paths, 0 , 1)
+
+    return paths[0]
+
 
 # List of points in the plane to be used for testing.
 points = list()
