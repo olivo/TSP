@@ -29,3 +29,9 @@ tsp_route = compute_nearest_neighbor_tsp_route(points)
 print "The TSP route using the nearest neighbor is:"
 for point in tsp_route:
     print Point.str(point), " "
+
+cost = 0
+for index in range(0, len(tsp_route) - 1):
+    cost += Point.distance(tsp_route[index], tsp_route[index + 1])
+
+print "The total cost is:", cost
