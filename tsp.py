@@ -19,7 +19,7 @@ def compute_nearest_neighbor_tsp_route(points):
     return route
 
 def closest_pair(paths):
-    best_distance = 0
+    best_distance = sys.maxint
     best_first_index = -1
     best_second_index = -1
     for first_index in range(0, len(paths)):
@@ -36,7 +36,7 @@ def closest_pair(paths):
                     best_first_index = second_index
                     best_second_index = first_index
     
-    return first_index, second_index
+    return best_first_index, best_second_index
 
 
 def merge_pairs(paths, first_index, second_index):
@@ -45,21 +45,19 @@ def merge_pairs(paths, first_index, second_index):
     second_path = paths[second_index]
     paths.remove(first_path)
     paths.remove(second_path)
-    paths.add(merged_path)
+    paths.append(merged_path)
         
 
 def compute_closest_pair_tsp_route(points):
     paths = list()
 
     for point in points:
-        path = list(point)
+        path = [point]
         paths.append(path)
 
     for index in range(0, len(points) - 1):
         first_index, second_index = closest_pair(paths)
         merge_pairs(paths, first_index, second_index)
-
-    merge_pairs(paths, 0 , 1)
 
     return paths[0]
 
@@ -71,7 +69,7 @@ points.append(Point(0,1))
 points.append(Point(1,2))
 points.append(Point(2,2))
 
-tsp_route = compute_nearest_neighbor_tsp_route(points)
+tsp_route = compute_closest_pair_tsp_route(points)
 
 print "The TSP route using the nearest neighbor is:"
 for point in tsp_route:
