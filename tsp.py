@@ -1,9 +1,13 @@
+# Oswaldo Olivo, 2016.
+# Implementation of heuristic solutions for the Travelling Salesman Problem.
+
 from point import Point
 import sys
 
 def nearest_neighbor(points, current_point):
     return min(points, key = lambda x: Point.distance(x, current_point) if x != current_point else sys.maxint)
 
+# Compute a TSP route using the nearest neighbor heuristic.
 def compute_nearest_neighbor_tsp_route(points):
     current_point = points[0]
     route = [current_point]
@@ -46,7 +50,7 @@ def merge_pairs(paths, first_index, second_index):
     paths.remove(second_path)
     paths.append(merged_path)
         
-
+# Compute a TSP route using the closest pair solution.
 def compute_closest_pair_tsp_route(points):
     paths = list()
 
@@ -63,17 +67,17 @@ def compute_closest_pair_tsp_route(points):
 
 # List of points in the plane to be used for testing.
 points = list()
+points.append(Point(0, 0))
 points.append(Point(-21, 0))
 points.append(Point(-5, 0))
 points.append(Point(-1, 0))
-points.append(Point(0, 0))
 points.append(Point(1, 0))
 points.append(Point(3, 0))
 points.append(Point(11, 0))
 
 tsp_route = compute_closest_pair_tsp_route(points)
 
-print "The TSP route using the nearest neighbor is:"
+print "The computed TSP route is:"
 for point in tsp_route:
     print Point.str(point), " "
 
