@@ -63,12 +63,15 @@ def compute_closest_pair_tsp_route(points):
 
 # List of points in the plane to be used for testing.
 points = list()
-points.append(Point(0,0))
-points.append(Point(0,1))
-points.append(Point(0,2))
-points.append(Point(0,3))
+points.append(Point(-21, 0))
+points.append(Point(-5, 0))
+points.append(Point(-1, 0))
+points.append(Point(0, 0))
+points.append(Point(1, 0))
+points.append(Point(3, 0))
+points.append(Point(11, 0))
 
-tsp_route = compute_nearest_neighbor_tsp_route(points)
+tsp_route = compute_closest_pair_tsp_route(points)
 
 print "The TSP route using the nearest neighbor is:"
 for point in tsp_route:
