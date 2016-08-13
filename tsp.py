@@ -15,7 +15,6 @@ def compute_nearest_neighbor_tsp_route(points):
         print "Neighbor:", Point.str(neighbor)
         points.remove(neighbor)
 
-    route.append(route[0])
     return route
 
 def closest_pair(paths):
@@ -66,17 +65,21 @@ def compute_closest_pair_tsp_route(points):
 points = list()
 points.append(Point(0,0))
 points.append(Point(0,1))
-points.append(Point(1,2))
-points.append(Point(2,2))
+points.append(Point(0,2))
+points.append(Point(0,3))
 
-tsp_route = compute_closest_pair_tsp_route(points)
+tsp_route = compute_nearest_neighbor_tsp_route(points)
 
 print "The TSP route using the nearest neighbor is:"
 for point in tsp_route:
     print Point.str(point), " "
 
+# Add cost for all edges between the internal nodes.
 cost = 0
 for index in range(0, len(tsp_route) - 1):
     cost += Point.distance(tsp_route[index], tsp_route[index + 1])
+
+# Add cost for the looping edge
+cost += Point.distance(tsp_route[-1], tsp_route[0])
 
 print "The total cost is:", cost
